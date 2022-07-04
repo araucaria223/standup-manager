@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function App() {
   // Array shuffling function now obolete
   // Like always, there's a builtin for that.
@@ -17,6 +19,9 @@ function App() {
   }
   */
 
+  const [names, setNames] = useState([]);
+
+  /*
   const names = [
     "Dan",
     "Georgina",
@@ -27,15 +32,39 @@ function App() {
     "Shabana",
     "Stevie"
   ];
+  */
 
   return (
-    <ol data-testid="namelist">
-      {names
-        .sort(() => Math.random() - 0.5)
-        .map((i, index) => (
-          <li key={index}>{i}</li>
-        ))}
-    </ol>
+    <>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const nameInput = document.getElementById("nameInput");
+          if (nameInput.value === "") {
+            return false;
+          }
+          let newArray = [...names, event.target[0].value];
+          setNames(newArray);
+          nameInput.value = "";
+          nameInput.focus();
+        }}
+      >
+        <input
+          type="text"
+          name="Name"
+          placeholder="Name"
+          id="nameInput"
+        ></input>
+        <button type="submit">button</button>
+      </form>
+      <ol data-testid="namelist">
+        {names
+          .sort(() => Math.random() - 0.5)
+          .map((i, index) => (
+            <li key={index}>{i}</li>
+          ))}
+      </ol>
+    </>
   );
 }
 
