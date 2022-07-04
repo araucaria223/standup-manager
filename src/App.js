@@ -17,17 +17,25 @@ function App() {
   }
   */
 
-  const names = ["Dan",
-                 "Sam",
-                 "Giles",
-                 "Stevie",
-                 "Georgina",
-                 "Shabana",
-                 "Qas",
-                 "JB"];
-  
+  const names = [
+    "Dan",
+    "Georgina",
+    "Giles",
+    "JB",
+    "Qas",
+    "Sam",
+    "Shabana",
+    "Stevie"
+  ];
+
   return (
-    names.sort( ()=>Math.random()-0.5 ).map((i) => <li>{i}</li>)
+    <ol data-testid="namelist">
+      {names
+        .sort(() => Math.random() - 0.5)
+        .map((i, index) => (
+          <li key={index}>{i}</li>
+        ))}
+    </ol>
   );
 }
 
