@@ -36,34 +36,43 @@ function App() {
 
   return (
     <>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          const nameInput = document.getElementById("nameInput");
-          if (nameInput.value === "") {
-            return false;
-          }
-          let newArray = [...names, event.target[0].value];
-          setNames(newArray);
-          nameInput.value = "";
-          nameInput.focus();
-        }}
-      >
-        <input
-          type="text"
-          name="Name"
-          placeholder="Name"
-          id="nameInput"
-        ></input>
-        <button type="submit">button</button>
-      </form>
-      <ol data-testid="namelist">
-        {names
-          .sort(() => Math.random() - 0.5)
-          .map((i, index) => (
-            <li key={index}>{i}</li>
-          ))}
-      </ol>
+      <div className="content-wrapper">
+        <div className="title-wrapper">
+          <h1>Standup manager version 1.0.0</h1>
+          <span>Enter names to continue</span>
+        </div>
+        <div className="nav-wrapper">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              const nameInput = document.getElementById("nameInput");
+              if (nameInput.value === "") {
+                return false;
+              }
+              let newArray = [...names, event.target[0].value];
+              setNames(newArray);
+              nameInput.value = "";
+              nameInput.focus();
+            }}
+          >
+            <input
+              type="text"
+              name="Name"
+              placeholder="Name"
+              id="nameInput"
+              autoComplete="off"
+            ></input>
+            <button type="submit">Add to list</button>
+          </form>
+        </div>
+        <ol data-testid="namelist">
+          {names
+            .sort(() => Math.random() - 0.5)
+            .map((i, index) => (
+              <li key={index}>{i}</li>
+            ))}
+        </ol>
+      </div>
     </>
   );
 }
