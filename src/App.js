@@ -1,39 +1,8 @@
 import React, { useState } from "react";
 
 function App() {
-  // Array shuffling function now obolete
-  // Like always, there's a builtin for that.
-  /*
-  function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-
-    return array
-  }
-  */
-
   const [names, setNames] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
-  /*
-  const names = [
-    "Dan",
-    "Georgina",
-    "Giles",
-    "JB",
-    "Qas",
-    "Sam",
-    "Shabana",
-    "Stevie"
-  ];
-  */
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -41,12 +10,13 @@ function App() {
       return false;
     }
 
-    let newArray = [...names, event.target[0].value];
+    let newArray = [...names, inputValue].sort(() => Math.random() - 0.5);
     setNames(newArray);
     setInputValue("");
   }
 
   function handleChange(event) {
+    event.preventDefault();
     setInputValue(event.target.value);
   }
 
@@ -60,7 +30,7 @@ function App() {
         <div className="nav-wrapper">
           <form
             data-testid="nameform"
-            onSubmit={handleSubmit}
+            onSubmit={(event) => handleSubmit(event)}
           >
             <input
               type="text"
@@ -70,7 +40,7 @@ function App() {
               data-testid="nameInput"
               autoComplete="off"
               value={inputValue}
-              onChange={handleChange}
+              onChange={(event) => handleChange(event)}
             ></input>
             <button type="submit" className="add-button">
               Add to list
@@ -79,7 +49,6 @@ function App() {
         </div>
         <ol data-testid="namelist">
           {names
-            .sort(() => Math.random() - 0.5)
             .map((i, index) => (
               <li key={index}>
                 {i}
