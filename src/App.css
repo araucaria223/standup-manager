@@ -28,7 +28,7 @@ body {
   width: 100%;
 }
 
-button {
+.add-button {
   background-color: #d08770;
   color: #eceff4;
   border: 2px solid transparent;
@@ -39,8 +39,8 @@ button {
   border-bottom-right-radius: 8px;
 }
 
-button:active,
-button:focus {
+.add-button:active,
+.add-button:focus {
   border: 2px solid #bf616a;
 }
 
@@ -54,4 +54,30 @@ input {
 
 input:focus-visible {
   outline: none;
+}
+
+ol {
+  counter-reset: item;
+  list-style-type: none;
+  padding-left: 0;
+  border: 2px solid #d8dee9;
+  border-radius: 16px;
+}
+
+li {
+  display: block;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border-bottom: 2px solid #d8dee9;
+}
+li:before {
+  content: counter(item) "  ";
+  counter-increment: item;
+}
+
+li:last-child {
+  border: none;
+}
+
+.remove-button {
 }

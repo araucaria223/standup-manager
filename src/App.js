@@ -43,6 +43,7 @@ function App() {
         </div>
         <div className="nav-wrapper">
           <form
+            data-testid="nameform"
             onSubmit={(event) => {
               event.preventDefault();
               const nameInput = document.getElementById("nameInput");
@@ -60,16 +61,21 @@ function App() {
               name="Name"
               placeholder="Name"
               id="nameInput"
+              data-testid="nameInput"
               autoComplete="off"
             ></input>
-            <button type="submit">Add to list</button>
+            <button type="submit" className="add-button">
+              Add to list
+            </button>
           </form>
         </div>
         <ol data-testid="namelist">
           {names
             .sort(() => Math.random() - 0.5)
             .map((i, index) => (
-              <li key={index}>{i}</li>
+              <li key={index}>
+                {i} <button className="remove-button">-</button>
+              </li>
             ))}
         </ol>
       </div>
