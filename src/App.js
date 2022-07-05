@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   // Array shuffling function now obolete
@@ -20,6 +20,7 @@ function App() {
   */
 
   const [names, setNames] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   /*
   const names = [
@@ -34,6 +35,21 @@ function App() {
   ];
   */
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (inputValue === "") {
+      return false;
+    }
+
+    let newArray = [...names, event.target[0].value];
+    setNames(newArray);
+    setInputValue("");
+  }
+
+  function handleChange(event) {
+    setInputValue(event.target.value);
+  }
+
   return (
     <>
       <div className="content-wrapper">
@@ -44,17 +60,7 @@ function App() {
         <div className="nav-wrapper">
           <form
             data-testid="nameform"
-            onSubmit={(event) => {
-              event.preventDefault();
-              const nameInput = document.getElementById("nameInput");
-              if (nameInput.value === "") {
-                return false;
-              }
-              let newArray = [...names, event.target[0].value];
-              setNames(newArray);
-              nameInput.value = "";
-              nameInput.focus();
-            }}
+            onSubmit={handleSubmit}
           >
             <input
               type="text"
@@ -63,6 +69,8 @@ function App() {
               id="nameInput"
               data-testid="nameInput"
               autoComplete="off"
+              value={inputValue}
+              onChange={handleChange}
             ></input>
             <button type="submit" className="add-button">
               Add to list
@@ -74,7 +82,7 @@ function App() {
             .sort(() => Math.random() - 0.5)
             .map((i, index) => (
               <li key={index}>
-                {i} <button className="remove-button">-</button>
+                {i}
               </li>
             ))}
         </ol>

@@ -64,12 +64,17 @@ ol {
   border-radius: 16px;
 }
 
+ol:empty {
+  border: none;
+}
+
 li {
   display: block;
   padding: 0.5rem 1rem;
   box-sizing: border-box;
   border-bottom: 2px solid #d8dee9;
 }
+
 li:before {
   content: counter(item) "  ";
   counter-increment: item;
@@ -77,4 +82,19 @@ li:before {
 
 li:last-child {
   border: none;
+}
+
+.remove-button {
+  background-color: transparent;
+  color: transparent;
+  border-color: transparent;
+  margin: 0;
+  border-radius: 10px;
+}
+
+li:hover .remove-button {
+  display: inline; 
+  background-color: #BF616A;
+  border: 1px solid #D8DEE9;
+  color: #D8DEE9;
 }
