@@ -64,10 +64,10 @@ function App() {
         </div>
         <ol data-testid="nameList">
           {names
-            .map((i) => {
+            .map((item, index) => {
               return (
-                <li key={i}>
-                  {i}
+                <li key={`${item}-${index}`} data-testid={`name-${index}`} >
+                  {item}
                 </li>
               )
             })}

@@ -40,31 +40,32 @@ describe("When adding a name to the list", () => {
   });
 });
 
+
 describe("When pressing the randomise button", () => {
-  it("Should randomise the existing list.", () => {
-    const { getByTestId } = render(<App />);
+  let nameList;
+  let screen;
+  beforeAll(() =>  {
+    screen = render(<App />);
+    let nameInput = screen.getByTestId("nameInput");
+    let nameForm = screen.getByTestId("nameform");
 
-    let nameInput = getByTestId("nameInput");
-    let nameForm = getByTestId("nameform");
-
-    for (let index = 0; index < 10; index++) {
+    for (let index = 1; index < 10; index++) {
       fireEvent.change(nameInput, { target: { value: `Placeholder ${index}` } });
       fireEvent.submit(nameForm);
     }
 
-    const nameList = getByTestId("nameList");
-    console.log(nameList)
+    nameList = screen.getByTestId("nameList").innerHTML;
+  });
 
-    const randomButton = getByTestId("randomButton");
+  it("Should randomise the existing list.", () => {
+    const randomButton = screen.getByTestId("randomButton");
     fireEvent.click(randomButton);
 
-    const randomisedNameList = getByTestId("nameList");
+    const randomisedNameList = screen.getByTestId("nameList").innerHTML;
 
-    console.log(nameList);
     expect(nameList).not.toEqual(randomisedNameList);
   });
 });
-
 
 describe("When clicking the clear button", () => {
   it("Should clear the existing list", () => {
