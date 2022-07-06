@@ -26,6 +26,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
+  align-items: center;
 }
 
 .add-button {
@@ -53,6 +54,31 @@ input {
 }
 
 input:focus-visible {
+  outline: none;
+}
+
+.random-button,
+.clear-button {
+  background-color: #B48EAD;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  margin-left: 0.5rem
+}
+
+.random-button svg *,
+.clear-button svg * {
+  fill: #E5E9F0;
+}
+
+.random-button:active,
+.random-button:focus,
+.clear-button:active,
+.clear-button:focus {
+  border: 2px solid #D8DEE9;
+}
+
+.random-button:focus-visible,
+.clear-button:focus-visible {
   outline: none;
 }
 
