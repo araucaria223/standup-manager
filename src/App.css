@@ -19,7 +19,7 @@ body {
 .content-wrapper {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .nav-wrapper {
@@ -62,7 +62,8 @@ input:focus-visible {
   background-color: #B48EAD;
   border: 2px solid transparent;
   border-radius: 20px;
-  margin-left: 0.5rem
+  margin-left: 0.5rem;
+  padding-block: 0.25rem;
 }
 
 .random-button svg *,
@@ -82,7 +83,24 @@ input:focus-visible {
   outline: none;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+
+  margin: 1rem;
+}
+
+.item-remove-button {
+  opacity: 0;
+  background-color: #BF616A;
+  color: #D8DEE9;
+  border: 2px solid transparent;
+  border-radius: 20px;
+}
+
 ol {
+  min-width: 20rem;
+  margin: auto;
   counter-reset: item;
   list-style-type: none;
   padding-left: 0;
@@ -95,10 +113,21 @@ ol:empty {
 }
 
 li {
-  display: block;
+  display: flex;
+
+  justify-content: space-between;
+
   padding: 0.5rem 1rem;
   box-sizing: border-box;
   border-bottom: 2px solid #d8dee9;
+}
+
+li span {
+  margin-inline: 0.5rem;
+}
+
+li:hover .item-remove-button {
+  opacity: 1;
 }
 
 li:before {

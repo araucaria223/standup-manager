@@ -10,20 +10,6 @@ describe("When viewing page", () => {
   });
 });
 
-/*
-describe("When viewing page", () => {
-  beforeAll(() => {
-    render(<App />);
-  });
-
-  it("Should generate a different order each time", () => {
-    const orderedList = screen.getByTestId("namelist").querySelectorAll("li");
-    const orderedList2 = screen.getByTestId("namelist").querySelectorAll("li");
-    expect(orderedList).not.toBe(orderedList2);
-  });
-});
-*/
-
 describe("When adding a name to the list", () => {
   it("Should display a list containing the name entered", () => {
     const { getByTestId } = render(<App />);
@@ -31,7 +17,7 @@ describe("When adding a name to the list", () => {
     let nameInput = getByTestId("nameInput");
     fireEvent.change(nameInput, { target: { value: "Placeholder" } });
 
-    let nameForm = getByTestId("nameform");
+    let nameForm = getByTestId("nameForm");
     fireEvent.submit(nameForm);
 
     const nameList = getByTestId("nameList");
@@ -47,7 +33,7 @@ describe("When pressing the randomise button", () => {
   beforeAll(() =>  {
     screen = render(<App />);
     let nameInput = screen.getByTestId("nameInput");
-    let nameForm = screen.getByTestId("nameform");
+    let nameForm = screen.getByTestId("nameForm");
 
     for (let index = 1; index < 10; index++) {
       fireEvent.change(nameInput, { target: { value: `Placeholder ${index}` } });
@@ -71,8 +57,8 @@ describe("When clicking the clear button", () => {
   it("Should clear the existing list", () => {
     const { getByTestId } = render(<App />);
 
-    let nameInput = getByTestId("nameInput");
-    let nameForm = getByTestId("nameform");
+    const nameInput = getByTestId("nameInput");
+    const nameForm = getByTestId("nameForm");
 
     fireEvent.change(nameInput, { target: { value: "Placeholder" } });
     fireEvent.submit(nameForm);
@@ -83,5 +69,23 @@ describe("When clicking the clear button", () => {
     const nameList = getByTestId("nameList");
 
     expect(nameList).not.toHaveTextContent("Placeholder");
+  });
+});
+
+describe("When clicking the list item remove button", () => {
+  it("Should remove the list item where the remove button was clicked", () => {
+    const { getByTestId } = render(<App />);
+
+    const nameInput = getByTestId("nameInput");
+    const nameForm = getByTestId("nameForm");
+
+    fireEvent.change(nameInput, { target: { value: "Placeholder" } });
+    fireEvent.submit(nameForm);
+
+    
+    const listItem = getByTestId("name-0");
+    fireEvent.click(listItem.querySelector("button"));
+
+    expect(listItem).not.toBeInTheDocument();
   });
 });
