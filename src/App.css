@@ -34,14 +34,12 @@ body {
   color: #eceff4;
   border: 2px solid transparent;
   padding: 0.5rem;
-  outline: none;
 
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
-.add-button:active,
-.add-button:focus {
+.add-button:active {
   border: 2px solid #bf616a;
 }
 
@@ -53,36 +51,6 @@ input {
   border-bottom-left-radius: 8px;
 }
 
-input:focus-visible {
-  outline: none;
-}
-
-.random-button,
-.clear-button {
-  background-color: #B48EAD;
-  border: 2px solid transparent;
-  border-radius: 20px;
-  margin-left: 0.5rem;
-  padding-block: 0.25rem;
-}
-
-.random-button svg *,
-.clear-button svg * {
-  fill: #E5E9F0;
-}
-
-.random-button:active,
-.random-button:focus,
-.clear-button:active,
-.clear-button:focus {
-  border: 2px solid #D8DEE9;
-}
-
-.random-button:focus-visible,
-.clear-button:focus-visible {
-  outline: none;
-}
-
 .button-container {
   display: flex;
   justify-content: center;
@@ -90,12 +58,32 @@ input:focus-visible {
   margin: 1rem;
 }
 
+.button-container button {
+  background-color: #B48EAD;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  margin-left: 0.5rem;
+  padding-block: 0.1rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.button-container button svg * {
+  fill: #E5E9F0;
+}
+
+.button-container button:active {
+  border: 2px solid #D8DEE9;
+}
+
+
 .item-remove-button {
   opacity: 0;
   background-color: #BF616A;
   color: #D8DEE9;
   border: 2px solid transparent;
   border-radius: 20px;
+  padding-left: 0.2rem;
 }
 
 ol {
