@@ -83,7 +83,7 @@ input {
   color: #D8DEE9;
   border: 2px solid transparent;
   border-radius: 20px;
-  padding-left: 0.2rem;
+  padding-inline: 0.4rem;
 }
 
 ol {
