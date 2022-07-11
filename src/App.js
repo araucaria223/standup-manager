@@ -2,7 +2,12 @@ import React, { useState } from "react";
 
 function App() {
   const url = new URL(window.location);
-  let searchParams = url.searchParams.get("names").split(",");
+  let searchParams;
+  try {
+    searchParams = url.searchParams.get("names").split(",");
+  } catch(err) {
+    searchParams = []
+  }
 
   if (searchParams[0] === "" && searchParams.length === 1) {
     searchParams = [];
@@ -15,7 +20,7 @@ function App() {
     const url = new URL(window.location);
 
     url.searchParams.set("names", params);
-    window.history.pushState({}, '', url);
+    window.history.replaceState({}, '', url);
   }
 
   function handleSubmit(event) {
@@ -25,7 +30,7 @@ function App() {
       return false;
     }
 
-    let newNames = [...names, inputValue]
+    let newNames = [...names, inputValue.trim()]
     setNames(newNames);
     setInputValue("");
 
