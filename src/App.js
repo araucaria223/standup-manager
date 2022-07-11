@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 
 function App() {
-  const [names, setNames] = useState([]);
+  const url = new URL(window.location);
+  let searchParams = url.searchParams.get("names").split(",");
+
+  if (searchParams[0] === "" && searchParams.length === 1) {
+    searchParams = [];
+  }
+
+  const [names, setNames] = useState(searchParams);
   const [inputValue, setInputValue] = useState("");
 
+  function setQueryParams(params) {
+    const url = new URL(window.location);
+
+    url.searchParams.set("names", params);
+    window.history.pushState({}, '', url);
+  }
+
   function handleSubmit(event) {
+
     event.preventDefault();
     if (inputValue === "") {
       return false;
     }
 
-    let newArray = [...names, inputValue]
-    setNames(newArray);
+    let newNames = [...names, inputValue]
+    setNames(newNames);
     setInputValue("");
+
+    setQueryParams(newNames.toString());
   }
 
   function handleChange(event) {
@@ -24,10 +41,14 @@ function App() {
     let newNames = names.sort(() => Math.random() - 0.5); 
 
     setNames([ ...newNames ]);
+
+    setQueryParams(newNames.toString());
   }
 
   function handleClear() {
     setNames([]);
+
+    setQueryParams("");
   }
 
   function handleListItemDelete(event) {
@@ -35,6 +56,8 @@ function App() {
 
     names.splice(indexToDelete, 1);
     setNames([ ...names ]);
+
+    setQueryParams(names.toString());
   }
 
   function handleCopy() {
