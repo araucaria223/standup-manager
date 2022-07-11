@@ -1,39 +1,51 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import App from "./App";
 
 describe("When viewing page", () => {
+  beforeAll(() => {
+    render(<App />);
+  });
+
   it("Should generate a list", () => {
-    const { getByTestId } = render(<App />);
-    const orderedList = getByTestId("nameList");
+    const orderedList = screen.getByTestId("nameList");
     expect(orderedList).toBeInTheDocument();
   });
 });
 
 describe("When adding a name to the list", () => {
-  it("Should display a list containing the name entered", () => {
-    const { getByTestId } = render(<App />);
-    const name = "Placeholder";
-    let nameInput = getByTestId("nameInput");
-    fireEvent.change(nameInput, { target: { value: "Placeholder" } });
+  let nameInput, nameForm, name;
+  beforeAll(() => {
+    render(<App />);
 
-    let nameForm = getByTestId("nameForm");
+    nameInput = screen.getByTestId("nameInput");
+    nameForm = screen.getByTestId("nameForm");
+    name = "Placeholder";
+  });
+
+  it("Should display a list containing the name entered", () => {
+    fireEvent.change(nameInput, { target: { value: name } });
     fireEvent.submit(nameForm);
 
-    const nameList = getByTestId("nameList");
+    const nameList = screen.getByTestId("nameList");
 
     expect(nameList).toHaveTextContent(name);
   });
+
+  it("Should change the URL to contain the name entered", () => {
+    const url = new URL(window.location)
+
+    expect(url.toString()).toContain(name)
+  });
 });
 
-
 describe("When pressing the randomise button", () => {
-  let nameList;
-  let screen;
+  let nameList, randomButton, url;
   beforeAll(() =>  {
-    screen = render(<App />);
-    let nameInput = screen.getByTestId("nameInput");
-    let nameForm = screen.getByTestId("nameForm");
+    render(<App />);
+
+    const nameInput = screen.getByTestId("nameInput");
+    const nameForm = screen.getByTestId("nameForm");
 
     for (let index = 1; index < 10; index++) {
       fireEvent.change(nameInput, { target: { value: `Placeholder ${index}` } });
@@ -41,51 +53,80 @@ describe("When pressing the randomise button", () => {
     }
 
     nameList = screen.getByTestId("nameList").innerHTML;
+
+    randomButton = screen.getByTestId("randomButton");
+    url = new URL(window.location);
+    fireEvent.click(randomButton);
   });
 
   it("Should randomise the existing list.", () => {
-    const randomButton = screen.getByTestId("randomButton");
-    fireEvent.click(randomButton);
-
     const randomisedNameList = screen.getByTestId("nameList").innerHTML;
 
     expect(nameList).not.toEqual(randomisedNameList);
   });
+
+  it("Should change the URL to match the randomised list", () => {
+    const randomisedUrl = new URL(window.location);
+
+    expect(url.toString()).not.toEqual(randomisedUrl);
+  });
 });
 
 describe("When clicking the clear button", () => {
-  it("Should clear the existing list", () => {
-    const { getByTestId } = render(<App />);
+  let clearButton, name;
+  beforeAll(() => {
+    render(<App />);
 
-    const nameInput = getByTestId("nameInput");
-    const nameForm = getByTestId("nameForm");
+    name = "Placeholder";
 
-    fireEvent.change(nameInput, { target: { value: "Placeholder" } });
+    const nameInput = screen.getByTestId("nameInput");
+    const nameForm = screen.getByTestId("nameForm");
+
+    fireEvent.change(nameInput, { target: { value: name } });
     fireEvent.submit(nameForm);
-    
-    const clearButton = getByTestId("clearButton");
+
+    clearButton = screen.getByTestId("clearButton");
+  });
+
+  it("Should clear the existing list", () => {
     fireEvent.click(clearButton);
 
-    const nameList = getByTestId("nameList");
+    const nameList = screen.getByTestId("nameList");
 
-    expect(nameList).not.toHaveTextContent("Placeholder");
+    expect(nameList).not.toHaveTextContent(name);
+  });
+
+  it("Should remove all list items from the URL", () => {
+    const url = new URL(window.location);
+
+    expect(url.toString).not.toContain(name);
   });
 });
 
 describe("When clicking the list item remove button", () => {
-  it("Should remove the list item where the remove button was clicked", () => {
-    const { getByTestId } = render(<App />);
+  let name, listItem;
+  beforeAll(() => {
+    render(<App />);
 
-    const nameInput = getByTestId("nameInput");
-    const nameForm = getByTestId("nameForm");
+    name = "Placeholder";
 
-    fireEvent.change(nameInput, { target: { value: "Placeholder" } });
+    const nameInput = screen.getByTestId("nameInput");
+    const nameForm = screen.getByTestId("nameForm");
+
+    fireEvent.change(nameInput, { target: { value: name } });
     fireEvent.submit(nameForm);
 
-    
-    const listItem = getByTestId("name-0");
+    listItem = screen.getByTestId("name-0");
     fireEvent.click(listItem.querySelector("button"));
+  });
 
+  it("Should remove the list item where the remove button was clicked", () => {
     expect(listItem).not.toBeInTheDocument();
+  });
+
+  it("Should remove the list item deleted from the URL", () => {
+    const url = new URL(window.location);
+
+    expect(url.toString()).not.toContain(name)
   });
 });
