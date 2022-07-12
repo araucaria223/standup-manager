@@ -59,7 +59,7 @@ body {
 }
 
 .add-button {
-  background-color: var(--lavender);
+  background-color: var(--sapphire);
   color: var(--surface0);
   border: 2px solid transparent;
   padding: 0.5rem;
@@ -96,7 +96,6 @@ input::placeholder {
 }
 
 .button-container button {
-  background-color: var(--lavender);
   border: 2px solid transparent;
   border-radius: 20px;
   margin-left: 0.5rem;
@@ -113,14 +112,27 @@ input::placeholder {
   border: 2px solid var(--text);
 }
 
+.random-button {
+  background-color: var(--lavender);
+}
+
+.copy-button {
+  background-color: var(--yellow);
+}
+
+.clear-button {
+  background-color: var(--red);
+}
+
 
 .item-remove-button {
   opacity: 0;
   background-color: var(--red);
   color: var(--surface0);
   border: 2px solid transparent;
-  border-radius: 20px;
+  border-radius: 10px;
   padding-inline: 0.4rem;
+  align-content: center;
 }
 
 ol {
@@ -152,7 +164,7 @@ li span {
 }
 
 li:hover .item-remove-button, li:focus-within .item-remove-button {
-  transition-delay: 0.2s;
+  transition-delay: 0.1s;
   transition-duration: 0.3s;
   opacity: 1;
 }
