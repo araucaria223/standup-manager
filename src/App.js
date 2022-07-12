@@ -33,11 +33,12 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (inputValue === "") {
+    const trimmedInputValue = inputValue.trim();
+    if (trimmedInputValue === "") {
       return false;
     }
 
-    let newNames = [...names, inputValue.trim()]
+    let newNames = [...names, trimmedInputValue];
     setNames(newNames);
     setInputValue("");
 
