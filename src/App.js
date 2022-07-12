@@ -22,9 +22,9 @@ function App() {
 
     url.searchParams.set("names", params);
 
-    if (mode == "replace") {
+    if (mode === "replace") {
       window.history.replaceState({}, '', url);
-    } else if (mode == "push") {
+    } else if (mode === "push") {
       window.history.pushState({}, '', url)
     } else {
       console.error("Invalid query params mode");
