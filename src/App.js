@@ -125,7 +125,7 @@ function App() {
                   <span>
                     {item}
                   </span>
-                  <button title="Remove from list" onClick={handleListItemDelete} className="item-remove-button">-</button>
+                  <button title="Remove from list" onClick={handleListItemDelete} className="item-remove-button" aria-describedby="Remove from list">-</button>
                 </li>
               )
             })}
