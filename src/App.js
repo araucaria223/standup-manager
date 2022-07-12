@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function App() {
   const url = new URL(window.location);
+
   let searchParams;
   try {
     searchParams = url.searchParams.get("names").split(",");
@@ -16,11 +17,18 @@ function App() {
   const [names, setNames] = useState(searchParams);
   const [inputValue, setInputValue] = useState("");
 
-  function setQueryParams(params) {
+  function setQueryParams(params, mode = "replace") {
     const url = new URL(window.location);
 
     url.searchParams.set("names", params);
-    window.history.replaceState({}, '', url);
+
+    if (mode == "replace") {
+      window.history.replaceState({}, '', url);
+    } else if (mode == "push") {
+      window.history.pushState({}, '', url)
+    } else {
+      console.error("Invalid query params mode");
+    }
   }
 
   function handleSubmit(event) {
@@ -51,7 +59,7 @@ function App() {
   function handleClear() {
     setNames([]);
 
-    setQueryParams("");
+    setQueryParams("", "push");
   }
 
   function handleListItemDelete(event) {
@@ -75,7 +83,7 @@ function App() {
     <>
       <div className="content-wrapper">
         <div className="title-wrapper">
-          <h1>Standup manager version 1.0.0</h1>
+          <h1>Standup manager</h1>
           <span>Enter names to continue</span>
         </div>
         <div className="nav-wrapper">
@@ -94,7 +102,7 @@ function App() {
               onChange={handleChange}
             ></input>
             <button type="submit" className="add-button">
-              Add to list
+              <strong>Add to list</strong>
             </button>
           </form>
         </div>
