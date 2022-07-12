@@ -1,6 +1,35 @@
+:root {
+--rosewater:	#f4dbd6;
+--flamingo:	#f0c6c6;
+--pink:	#f5bde6;
+--mauve:	#c6a0f6;
+--red: #ed8796;
+--maroon:	#ee99a0;
+--peach:	#f5a97f;
+--yellow:	#eed49f;
+--green:	#a6da95;
+--teal:	#8bd5ca;
+--sky:	#91d7e3;
+--sapphire:	#7dc4e4;
+--blue:	#8aadf4;
+--lavender:	#b7bdf8;
+--text:	#cad3f5;
+--subtext1:	#b8c0e0;
+--subtext0:	#a5adcb;
+--overlay2:	#939ab7;
+--overlay1:	#8087a2;
+--overlay0:	#6e738d;
+--surface2:	#5b6078;
+--surface1:	#494d64;
+--surface0:	#363a4f;
+--base: #24273a;
+--mantle: #1e2030;
+--crust: #181926;
+}
+
 body {
-  background-color: #2e3440;
-  color: #eceff4;
+  background-color: var(--base);
+  color: var(--text);
 }
 
 .title-wrapper h1 {
@@ -8,7 +37,7 @@ body {
 }
 
 .title-wrapper span {
-  color: #d8dee9;
+  color: var(--subtext1);
 }
 
 .title-wrapper {
@@ -30,8 +59,8 @@ body {
 }
 
 .add-button {
-  background-color: #d08770;
-  color: #eceff4;
+  background-color: var(--lavender);
+  color: var(--surface0);
   border: 2px solid transparent;
   padding: 0.5rem;
 
@@ -40,15 +69,23 @@ body {
 }
 
 .add-button:active {
-  border: 2px solid #bf616a;
+  border: 2px solid var(--text);
 }
 
 input {
+  background-color: var(--surface0);
+  color: var(--text);
+  
   border: 2px solid transparent;
   padding: 0.5rem;
 
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+
+input::placeholder {
+  color: var(--overlay1);
+  opacity: 1;
 }
 
 .button-container {
@@ -59,7 +96,7 @@ input {
 }
 
 .button-container button {
-  background-color: #B48EAD;
+  background-color: var(--lavender);
   border: 2px solid transparent;
   border-radius: 20px;
   margin-left: 0.5rem;
@@ -69,18 +106,18 @@ input {
 }
 
 .button-container button svg * {
-  fill: #E5E9F0;
+  fill: var(--surface0);
 }
 
 .button-container button:active {
-  border: 2px solid #D8DEE9;
+  border: 2px solid var(--text);
 }
 
 
 .item-remove-button {
   opacity: 0;
-  background-color: #BF616A;
-  color: #D8DEE9;
+  background-color: var(--red);
+  color: var(--surface0);
   border: 2px solid transparent;
   border-radius: 20px;
   padding-inline: 0.4rem;
@@ -92,7 +129,7 @@ ol {
   counter-reset: item;
   list-style-type: none;
   padding-left: 0;
-  border: 2px solid #d8dee9;
+  border: 2px solid var(--overlay1);
   border-radius: 16px;
 }
 
@@ -107,14 +144,16 @@ li {
 
   padding: 0.5rem 1rem;
   box-sizing: border-box;
-  border-bottom: 2px solid #d8dee9;
+  border-bottom: 2px solid var(--overlay1);
 }
 
 li span {
   margin-inline: 0.5rem;
 }
 
-li:hover .item-remove-button {
+li:hover .item-remove-button, li:focus-within .item-remove-button {
+  transition-delay: 0.2s;
+  transition-duration: 0.3s;
   opacity: 1;
 }
 
