@@ -34,7 +34,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     const trimmedInputValue = inputValue.trim();
-    if (trimmedInputValue === "") {
+    if (trimmedInputValue === "" || trimmedInputValue === "​") {
       return false;
     }
 
@@ -100,6 +100,7 @@ function App() {
               data-testid="nameInput"
               autoComplete="off"
               value={inputValue}
+              maxLength="100"
               onChange={handleChange}
             ></input>
             <button type="submit" className="add-button">
