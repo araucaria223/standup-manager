@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { darkMode } from "./Theme";
+import { darkTheme, lightTheme } from "./Theme";
 import {
   GlobalStyle,
   ContentWrapper,
@@ -27,7 +27,8 @@ function App() {
   if (searchParams[0] === "" && searchParams.length === 1) {
     searchParams = [];
   }
-
+  const [theme, setTheme] = useState("darkTheme");
+  console.log(theme);
   const [names, setNames] = useState(searchParams);
   const [inputValue, setInputValue] = useState("");
 
@@ -97,9 +98,12 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={darkMode}>
+    <ThemeProvider theme={theme === "darkTheme" ? darkTheme : lightTheme}>
       <GlobalStyle />
       <ContentWrapper>
+        <ActionButton onClick={() => setTheme("lightTheme")}>
+          Theme
+        </ActionButton>
         <TitleWrapper>
           <h1>Standup manager</h1>
           <span>Enter names to continue</span>
