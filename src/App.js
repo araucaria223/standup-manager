@@ -27,8 +27,8 @@ function App() {
   if (searchParams[0] === "" && searchParams.length === 1) {
     searchParams = [];
   }
-  const [theme, setTheme] = useState("darkTheme");
-  console.log(theme);
+
+  const [darkMode, setDarkMode] = useState(true);
   const [names, setNames] = useState(searchParams);
   const [inputValue, setInputValue] = useState("");
 
@@ -44,6 +44,10 @@ function App() {
     } else {
       console.error("Invalid query params mode");
     }
+  }
+
+  function toggleTheme() {
+    setDarkMode(!darkMode);
   }
 
   function handleSubmit(event) {
@@ -98,12 +102,10 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={theme === "darkTheme" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
       <ContentWrapper>
-        <ActionButton onClick={() => setTheme("lightTheme")}>
-          Theme
-        </ActionButton>
+        <ActionButton bgcolor="crust" onClick={toggleTheme}></ActionButton>
         <TitleWrapper>
           <h1>Standup manager</h1>
           <span>Enter names to continue</span>
@@ -128,7 +130,7 @@ function App() {
         </NavWrapper>
         <ActionButtonWrapper>
           <ActionButton
-            color="lavender"
+            bgcolor="lavender"
             title="Randomise list"
             data-testid="randomButton"
             onClick={handleRandomise}
@@ -143,7 +145,7 @@ function App() {
             </svg>
           </ActionButton>
           <ActionButton
-            color="yellow"
+            bgcolor="yellow"
             title="Copy list to clipboard"
             className="copy-button"
             data-testid="copyButton"
@@ -159,7 +161,7 @@ function App() {
             </svg>
           </ActionButton>
           <ActionButton
-            color="red"
+            bgcolor="red"
             title="Clear list"
             data-testid="clearButton"
             onClick={handleClear}
@@ -184,7 +186,7 @@ function App() {
               >
                 <span>{item}</span>
                 <ActionButton
-                  color="red"
+                  bgcolor="red"
                   visible="on-hover"
                   title="Remove from list"
                   onClick={handleListItemDelete}
