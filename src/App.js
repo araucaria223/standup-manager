@@ -6,8 +6,8 @@ function App() {
   let searchParams;
   try {
     searchParams = url.searchParams.get("names").split(",");
-  } catch(err) {
-    searchParams = []
+  } catch (err) {
+    searchParams = [];
   }
 
   if (searchParams[0] === "" && searchParams.length === 1) {
@@ -23,9 +23,9 @@ function App() {
     url.searchParams.set("names", params);
 
     if (mode === "replace") {
-      window.history.replaceState({}, '', url);
+      window.history.replaceState({}, "", url);
     } else if (mode === "push") {
-      window.history.pushState({}, '', url)
+      window.history.pushState({}, "", url);
     } else {
       console.error("Invalid query params mode");
     }
@@ -52,7 +52,7 @@ function App() {
   function handleRandomise() {
     let newNames = names.sort(() => Math.random() - 0.5); 
 
-    setNames([ ...newNames ]);
+    setNames([...newNames]);
 
     setQueryParams(newNames.toString());
   }
@@ -64,10 +64,12 @@ function App() {
   }
 
   function handleListItemDelete(event) {
-    const indexToDelete = parseInt(event.target.parentElement.getAttribute("index"));
+    const indexToDelete = parseInt(
+      event.target.parentElement.getAttribute("index")
+    );
 
     names.splice(indexToDelete, 1);
-    setNames([ ...names ]);
+    setNames([...names]);
 
     setQueryParams(names.toString());
   }
@@ -75,7 +77,7 @@ function App() {
   function handleCopy() {
     let copyText = "";
     names.forEach((name, index) => {
-      copyText += `${index + 1}. ${name}\n`
+      copyText += `${index + 1}. ${name}\n`;
     });
     navigator.clipboard.writeText(copyText);
   }
@@ -120,16 +122,24 @@ function App() {
           </button>
         </div>
         <ol data-testid="nameList">
-          {names
-            .map((item, index) => {
+          {names.map((item, index) => {
               return (
-                <li key={`${item}-${index}`} data-testid={`name-${index}`} index={index}>
-                  <span>
-                    {item}
-                  </span>
-                  <button title="Remove from list" onClick={handleListItemDelete} className="item-remove-button" aria-describedby="Remove from list"><strong>-</strong></button>
+              <li
+                key={`${item}-${index}`}
+                data-testid={`name-${index}`}
+                index={index}
+              >
+                <span>{item}</span>
+                <button
+                  title="Remove from list"
+                  onClick={handleListItemDelete}
+                  className="item-remove-button"
+                  aria-describedby="Remove from list"
+                >
+                  <strong>-</strong>
+                </button>
                 </li>
-              )
+            );
             })}
         </ol>
       </div>
