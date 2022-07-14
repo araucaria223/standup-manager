@@ -27,8 +27,7 @@ function App() {
   if (searchParams[0] === "" && searchParams.length === 1) {
     searchParams = [];
   }
-  const [theme, setTheme] = useState("darkTheme");
-  console.log(theme);
+  const [darkMode, setDarkMode] = useState(true);
   const [names, setNames] = useState(searchParams);
   const [inputValue, setInputValue] = useState("");
 
@@ -44,6 +43,10 @@ function App() {
     } else {
       console.error("Invalid query params mode");
     }
+  }
+
+  function handleThemeToggle() {
+    setDarkMode(!darkMode);
   }
 
   function handleSubmit(event) {
@@ -98,12 +101,10 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={theme === "darkTheme" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
       <ContentWrapper>
-        <ActionButton onClick={() => setTheme("lightTheme")}>
-          Theme
-        </ActionButton>
+        <ActionButton onClick={handleThemeToggle}>Theme</ActionButton>
         <TitleWrapper>
           <h1>Standup manager</h1>
           <span>Enter names to continue</span>
