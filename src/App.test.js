@@ -2,6 +2,8 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import App from "./App";
 
+import { lightTheme } from "./theme";
+
 describe("When viewing page", () => {
   beforeAll(() => {
     render(<App />);
@@ -33,22 +35,24 @@ describe("When adding a name to the list", () => {
   });
 
   it("Should change the URL to contain the name entered", () => {
-    const url = new URL(window.location)
+    const url = new URL(window.location);
 
-    expect(url.toString()).toContain(name)
+    expect(url.toString()).toContain(name);
   });
 });
 
 describe("When pressing the randomise button", () => {
   let nameList, randomButton, url;
-  beforeAll(() =>  {
+  beforeAll(() => {
     render(<App />);
 
     const nameInput = screen.getByTestId("nameInput");
     const nameForm = screen.getByTestId("nameForm");
 
     for (let index = 1; index < 10; index++) {
-      fireEvent.change(nameInput, { target: { value: `Placeholder ${index}` } });
+      fireEvent.change(nameInput, {
+        target: { value: `Placeholder ${index}` },
+      });
       fireEvent.submit(nameForm);
     }
 
@@ -127,6 +131,21 @@ describe("When clicking the list item remove button", () => {
   it("Should remove the list item deleted from the URL", () => {
     const url = new URL(window.location);
 
-    expect(url.toString()).not.toContain(name)
+    expect(url.toString()).not.toContain(name);
+  });
+});
+
+describe("When clicking the theme toggle button", () => {
+  beforeAll(() => {
+    render(<App />);
+  });
+
+  it("Should change theme", () => {
+    const themeButton = screen.getByTestId("themeButton");
+    fireEvent.click(themeButton);
+
+    expect(themeButton).toHaveStyle(
+      `background-color: ${lightTheme.colors.mantle}`
+    );
   });
 });
