@@ -18,6 +18,7 @@ export const TitleWrapper = styled.div`
   margin-bottom: 0.5rem;
 
   & h1 {
+    margin-top: 0;
     margin-bottom: 0.2rem;
   }
 
@@ -88,8 +89,6 @@ export const ActionButton = styled.button`
   padding-block: 0.3%;
   padding-inline: 0.4rem;
 
-  align-self: flex-end;
-
   align-items: center;
   justify-items: center;
   align-content: center;
@@ -105,6 +104,13 @@ export const ActionButton = styled.button`
         ? props.theme.colors[props.color]
         : props.theme.colors.surface0};
   }
+`;
+
+export const ThemeButton = styled(ActionButton)`
+  align-self: flex-end;
+
+  position: absolute;
+  right: 1rem;
 `;
 
 export const NameList = styled.ol`
