@@ -75,7 +75,10 @@ export const ActionButton = styled.button`
 
   opacity: ${(props) => (props.visible === "on-hover" ? 0 : 1)};
   background-color: ${(props) => props.theme.colors[props.bgcolor]};
-  color: ${(props) => props.theme.colors.surface0};
+  color: ${(props) =>
+    props.color
+      ? props.theme.colors[props.color]
+      : props.theme.colors.surface0};
 
   border: 2px solid transparent;
   border-radius: 50%;
@@ -97,7 +100,10 @@ export const ActionButton = styled.button`
   }
 
   & svg * {
-    fill: ${(props) => props.theme.colors.surface0};
+    fill: ${(props) =>
+      props.color
+        ? props.theme.colors[props.color]
+        : props.theme.colors.surface0};
   }
 `;
 

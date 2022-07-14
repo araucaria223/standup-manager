@@ -1,4 +1,5 @@
 export const darkTheme = {
+  name: "darkTheme",
   colors: {
     rosewater: "#f4dbd6",
     flamingo: "#f0c6c6",
@@ -30,6 +31,7 @@ export const darkTheme = {
 };
 
 export const lightTheme = {
+  name: "lightTheme",
   colors: {
     rosewater: "#dc8a78",
     flamingo: "#dd7878",
