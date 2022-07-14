@@ -82,7 +82,7 @@ export const ActionButton = styled.button`
 
   margin-inline: 0.3rem;
 
-  padding-block: 0.4%;
+  padding-block: 0.3%;
   padding-inline: 0.4rem;
 
   align-self: flex-end;
