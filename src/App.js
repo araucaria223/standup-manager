@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "./Theme";
+import { darkTheme, lightTheme } from "./theme";
 import {
   GlobalStyle,
   ContentWrapper,
@@ -12,7 +12,7 @@ import {
   ActionButton,
   NameList,
   NameItem,
-} from "./Styles";
+} from "./styles";
 
 function App() {
   const url = new URL(window.location);
