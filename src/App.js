@@ -129,7 +129,7 @@ function App() {
         </NavWrapper>
         <ActionButtonWrapper>
           <ActionButton
-            color="lavender"
+            bgcolor="lavender"
             title="Randomise list"
             data-testid="randomButton"
             onClick={handleRandomise}
@@ -144,7 +144,7 @@ function App() {
             </svg>
           </ActionButton>
           <ActionButton
-            color="yellow"
+            bgcolor="yellow"
             title="Copy list to clipboard"
             className="copy-button"
             data-testid="copyButton"
@@ -160,7 +160,7 @@ function App() {
             </svg>
           </ActionButton>
           <ActionButton
-            color="red"
+            bgcolor="red"
             title="Clear list"
             data-testid="clearButton"
             onClick={handleClear}
@@ -185,7 +185,7 @@ function App() {
               >
                 <span>{item}</span>
                 <ActionButton
-                  color="red"
+                  bgcolor="red"
                   visible="on-hover"
                   title="Remove from list"
                   onClick={handleListItemDelete}
