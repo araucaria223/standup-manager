@@ -148,7 +148,7 @@ function App() {
               maxLength="100"
               onChange={handleChange}
             ></NameInput>
-            <AddButton type="submit" className="add-button">
+            <AddButton type="submit">
               <strong>Add to list</strong>
             </AddButton>
           </form>
@@ -172,7 +172,6 @@ function App() {
           <ActionButton
             bgcolor="yellow"
             title="Copy list to clipboard"
-            className="copy-button"
             data-testid="copyButton"
             onClick={handleCopy}
           >
@@ -215,7 +214,6 @@ function App() {
                   visible="on-hover"
                   title="Remove from list"
                   onClick={handleListItemDelete}
-                  className="item-remove-button"
                   aria-describedby="Remove from list"
                 >
                   <strong>-</strong>
