@@ -132,7 +132,7 @@ function App() {
       </ThemeButton>
       <ContentWrapper>
         <TitleWrapper>
-          <h1>Standup manager</h1>
+          <h1>Standup Manager</h1>
           <span>Enter names to continue</span>
         </TitleWrapper>
         <NavWrapper>
