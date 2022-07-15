@@ -145,7 +145,7 @@ function App() {
               data-testid="nameInput"
               autoComplete="off"
               value={inputValue}
-              maxLength="100"
+              maxLength="60"
               onChange={handleChange}
             ></NameInput>
             <AddButton type="submit">
