@@ -84,7 +84,7 @@ function App() {
 
   function handleListItemDelete(event) {
     const indexToDelete = parseInt(
-      event.target.parentElement.getAttribute("index")
+      event.target.parentElement.getAttribute("order")
     );
 
     names.splice(indexToDelete, 1);
@@ -205,8 +205,8 @@ function App() {
             return (
               <NameItem
                 key={`${item}-${index}`}
+                order={index}
                 data-testid={`name-${index}`}
-                index={index}
               >
                 <span>{item}</span>
                 <ActionButton
@@ -216,7 +216,7 @@ function App() {
                   onClick={handleListItemDelete}
                   aria-describedby="Remove from list"
                 >
-                  <strong>-</strong>
+                  -
                 </ActionButton>
               </NameItem>
             );
