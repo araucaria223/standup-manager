@@ -139,8 +139,8 @@ export const NameItem = styled.li`
     margin-inline: 0.5rem;
   }
 
-  &:hover .item-remove-button,
-  &:focus-within .item-remove-button {
+  &:hover ${ActionButton},
+  &:focus-within ${ActionButton} {
     transition-delay: 0.1s;
     transition-duration: 0.3s;
     opacity: 1;
