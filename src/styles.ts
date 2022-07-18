@@ -84,11 +84,8 @@ export const ActionButton = styled.button<ABtn>`
   display: flex;
 
   opacity: ${(props) => (props.visible === "on-hover" ? 0 : 1)};
-  background-color: ${(props) => props.theme.colors[props.bgcolor]};
-  color: ${(props) =>
-    props.color
-      ? props.theme.colors[props.color]
-      : props.theme.colors.surface0};
+  background-color: ${(props) => props.theme.colors[props.bgcolor || "mantle"]};
+  color: ${(props) => props.theme.colors[props.color || "surface0"]};
 
   border: 2px solid transparent;
   border-radius: 50%;
@@ -136,7 +133,11 @@ export const NameList = styled.ol`
   }
 `;
 
-export const NameItem = styled.li`
+interface NItm {
+  order: number;
+}
+
+export const NameItem = styled.li<NItm>`
   display: flex;
   justify-content: space-between;
 
