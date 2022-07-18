@@ -81,9 +81,8 @@ function App(): any {
 
   function handleListItemDelete(event: Event) {
     const target = event.target as HTMLButtonElement;
-    const indexToDelete = parseInt(
-      target.parentElement?.getAttribute("order") || "0"
-    );
+    const parentElement = target.parentElement || new HTMLElement();
+    const indexToDelete = parseInt(parentElement.getAttribute("order") || "0");
 
     names.splice(indexToDelete, 1);
     setNames([...names]);
