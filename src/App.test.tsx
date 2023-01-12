@@ -10,7 +10,7 @@ describe("When viewing page", () => {
   });
 
   it("Should generate a list", () => {
-    const orderedList: HTMLElement = screen.getByTestId("nameList");
+    const orderedList = screen.getByTestId("nameList");
     expect(orderedList).toBeInTheDocument();
   });
 });
@@ -29,7 +29,7 @@ describe("When adding a name to the list", () => {
     fireEvent.change(nameInput, { target: { value: name } });
     fireEvent.submit(nameForm);
 
-    const nameList: HTMLElement = screen.getByTestId("nameList");
+    const nameList = screen.getByTestId("nameList");
 
     expect(nameList).toHaveTextContent(name);
   });
