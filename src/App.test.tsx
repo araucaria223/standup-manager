@@ -4,6 +4,8 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import App from "./App";
 import { lightTheme } from "./theme";
 
+const name: string = "John Doe";
+
 describe("When viewing page", () => {
   beforeAll(() => {
     render(<App />);
@@ -16,13 +18,12 @@ describe("When viewing page", () => {
 });
 
 describe("When adding a name to the list", () => {
-  let nameInput: HTMLElement, nameForm: HTMLElement, name: string;
+  let nameInput: HTMLElement, nameForm: HTMLElement;
   beforeAll(() => {
     render(<App />);
 
     nameInput = screen.getByTestId("nameInput");
     nameForm = screen.getByTestId("nameForm");
-    name = "Placeholder";
   });
 
   it("Should display a list containing the name entered", () => {
@@ -37,7 +38,7 @@ describe("When adding a name to the list", () => {
   it("Should change the URL to contain the name entered", () => {
     const url = new URL(window.location.href);
 
-    expect(url.toString()).toContain(name);
+    expect(url.toString()).toContain(name.replace(" ", "+"));
   });
 });
 
@@ -76,11 +77,9 @@ describe("When pressing the randomise button", () => {
 });
 
 describe("When clicking the clear button", () => {
-  let clearButton: HTMLElement, name: string;
+  let clearButton: HTMLElement;
   beforeAll(() => {
     render(<App />);
-
-    name = "Placeholder";
 
     const nameInput = screen.getByTestId("nameInput");
     const nameForm = screen.getByTestId("nameForm");
@@ -102,16 +101,14 @@ describe("When clicking the clear button", () => {
   it("Should remove all list items from the URL", () => {
     const url = new URL(window.location.href);
 
-    expect(url.toString).not.toContain(name);
+    expect(url.toString).not.toContain(name.replace(" ", "+"));
   });
 });
 
 describe("When clicking the list item remove button", () => {
-  let name: string, listItem: HTMLButtonElement;
+  let listItem: HTMLButtonElement;
   beforeAll(() => {
     render(<App />);
-
-    name = "Placeholder";
 
     const nameInput = screen.getByTestId("nameInput");
     const nameForm = screen.getByTestId("nameForm");
@@ -130,7 +127,7 @@ describe("When clicking the list item remove button", () => {
   it("Should remove the list item deleted from the URL", () => {
     const url = new URL(window.location.href);
 
-    expect(url.toString()).not.toContain(name);
+    expect(url.toString()).not.toContain(name.replace(" ", "+"));
   });
 });
 
