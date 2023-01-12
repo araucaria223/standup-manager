@@ -63,7 +63,7 @@ describe("When pressing the randomise button", () => {
     fireEvent.click(randomButton);
   });
 
-  it("Should randomise the exisiting list.", () => {
+  it("Should randomise the existing list.", () => {
     const randomisedNameList = screen.getByTestId("nameList").innerHTML;
 
     expect(nameList).not.toEqual(randomisedNameList);
