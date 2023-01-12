@@ -138,7 +138,7 @@ function App(): any {
               maxLength={60}
               onChange={handleChange}
             ></NameInput>
-            <AddButton type="submit">
+            <AddButton type="submit" data-testid="nameFormSubmit">
               <strong>Add to list</strong>
             </AddButton>
           </form>

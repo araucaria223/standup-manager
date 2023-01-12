@@ -1,5 +1,6 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import App from "./App";
 import { lightTheme } from "./theme";
@@ -18,17 +19,17 @@ describe("When viewing page", () => {
 });
 
 describe("When adding a name to the list", () => {
-  let nameInput: HTMLElement, nameForm: HTMLElement;
+  let nameInput: HTMLElement, nameFormSubmit: HTMLButtonElement;
   beforeAll(() => {
     render(<App />);
 
     nameInput = screen.getByTestId("nameInput");
-    nameForm = screen.getByTestId("nameForm");
+    nameFormSubmit = screen.getByTestId("nameFormSubmit");
   });
 
   it("Should display a list containing the name entered", () => {
-    fireEvent.change(nameInput, { target: { value: name } });
-    fireEvent.submit(nameForm);
+    userEvent.type(nameInput, name);
+    userEvent.click(nameFormSubmit);
 
     const nameList = screen.getByTestId("nameList");
 
@@ -49,19 +50,17 @@ describe("When pressing the randomise button", () => {
     render(<App />);
 
     const nameInput = screen.getByTestId("nameInput");
-    const nameForm = screen.getByTestId("nameForm");
+    const nameFormSubmit = screen.getByTestId("nameFormSubmit");
 
     for (let index = 1; index < 10; index++) {
-      fireEvent.change(nameInput, {
-        target: { value: `Placeholder ${index}` },
-      });
-      fireEvent.submit(nameForm);
+      userEvent.type(nameInput, `Placeholder ${index}`);
+      userEvent.click(nameFormSubmit);
     }
 
     nameList = screen.getByTestId("nameList").innerHTML;
     randomButton = screen.getByTestId("randomButton");
     url = new URL(window.location.href);
-    fireEvent.click(randomButton);
+    userEvent.click(randomButton);
   });
 
   it("Should randomise the existing list.", () => {
@@ -77,21 +76,21 @@ describe("When pressing the randomise button", () => {
 });
 
 describe("When clicking the clear button", () => {
-  let clearButton: HTMLElement;
+  let clearButton: HTMLButtonElement;
   beforeAll(() => {
     render(<App />);
 
     const nameInput = screen.getByTestId("nameInput");
-    const nameForm = screen.getByTestId("nameForm");
+    const nameFormSubmit = screen.getByTestId("nameFormSubmit");
 
-    fireEvent.change(nameInput, { target: { value: name } });
-    fireEvent.submit(nameForm);
+    userEvent.type(nameInput, name);
+    userEvent.click(nameFormSubmit);
 
     clearButton = screen.getByTestId("clearButton");
   });
 
   it("Should clear the existing list", () => {
-    fireEvent.click(clearButton);
+    userEvent.click(clearButton);
 
     const nameList = screen.getByTestId("nameList");
 
@@ -111,13 +110,13 @@ describe("When clicking the list item remove button", () => {
     render(<App />);
 
     const nameInput = screen.getByTestId("nameInput");
-    const nameForm = screen.getByTestId("nameForm");
+    const nameFormSubmit = screen.getByTestId("nameFormSubmit");
 
-    fireEvent.change(nameInput, { target: { value: name } });
-    fireEvent.submit(nameForm);
+    userEvent.type(nameInput, name);
+    userEvent.click(nameFormSubmit);
 
     listItem = screen.getByTestId("name-0");
-    fireEvent.click(listItem.querySelector("button") as HTMLButtonElement);
+    userEvent.click(listItem.querySelector("button") as HTMLButtonElement);
   });
 
   it("Should remove the list item where the remove button was clicked", () => {
@@ -138,7 +137,7 @@ describe("When clicking the theme toggle button", () => {
 
   it("Should change the theme", () => {
     const themeButton = screen.getByTestId("themeButton");
-    fireEvent.click(themeButton);
+    userEvent.click(themeButton);
 
     expect(themeButton).toHaveStyle(
       `background-color: ${lightTheme.colors.mantle}`
