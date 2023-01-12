@@ -1,8 +1,10 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import App from "./App";
 
+import App from "./App";
 import { lightTheme } from "./theme";
+
+const name: string = "John Doe";
 
 describe("When viewing page", () => {
   beforeAll(() => {
@@ -16,13 +18,12 @@ describe("When viewing page", () => {
 });
 
 describe("When adding a name to the list", () => {
-  let nameInput, nameForm, name;
+  let nameInput: HTMLElement, nameForm: HTMLElement;
   beforeAll(() => {
     render(<App />);
 
     nameInput = screen.getByTestId("nameInput");
     nameForm = screen.getByTestId("nameForm");
-    name = "Placeholder";
   });
 
   it("Should display a list containing the name entered", () => {
@@ -35,14 +36,15 @@ describe("When adding a name to the list", () => {
   });
 
   it("Should change the URL to contain the name entered", () => {
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
 
-    expect(url.toString()).toContain(name);
+    expect(url.toString()).toContain(name.replace(" ", "+"));
   });
 });
 
 describe("When pressing the randomise button", () => {
-  let nameList, randomButton, url;
+  let nameList: string, randomButton, url: URL;
+
   beforeAll(() => {
     render(<App />);
 
@@ -57,9 +59,8 @@ describe("When pressing the randomise button", () => {
     }
 
     nameList = screen.getByTestId("nameList").innerHTML;
-
     randomButton = screen.getByTestId("randomButton");
-    url = new URL(window.location);
+    url = new URL(window.location.href);
     fireEvent.click(randomButton);
   });
 
@@ -70,18 +71,15 @@ describe("When pressing the randomise button", () => {
   });
 
   it("Should change the URL to match the randomised list", () => {
-    const randomisedUrl = new URL(window.location);
-
-    expect(url.toString()).not.toEqual(randomisedUrl);
+    const randomisedUrl = new URL(window.location.href);
+    expect(url.toString()).not.toEqual(randomisedUrl.toString());
   });
 });
 
 describe("When clicking the clear button", () => {
-  let clearButton, name;
+  let clearButton: HTMLElement;
   beforeAll(() => {
     render(<App />);
-
-    name = "Placeholder";
 
     const nameInput = screen.getByTestId("nameInput");
     const nameForm = screen.getByTestId("nameForm");
@@ -101,18 +99,16 @@ describe("When clicking the clear button", () => {
   });
 
   it("Should remove all list items from the URL", () => {
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
 
-    expect(url.toString).not.toContain(name);
+    expect(url.toString).not.toContain(name.replace(" ", "+"));
   });
 });
 
 describe("When clicking the list item remove button", () => {
-  let name, listItem;
+  let listItem: HTMLButtonElement;
   beforeAll(() => {
     render(<App />);
-
-    name = "Placeholder";
 
     const nameInput = screen.getByTestId("nameInput");
     const nameForm = screen.getByTestId("nameForm");
@@ -121,7 +117,7 @@ describe("When clicking the list item remove button", () => {
     fireEvent.submit(nameForm);
 
     listItem = screen.getByTestId("name-0");
-    fireEvent.click(listItem.querySelector("button"));
+    fireEvent.click(listItem.querySelector("button") as HTMLButtonElement);
   });
 
   it("Should remove the list item where the remove button was clicked", () => {
@@ -129,9 +125,9 @@ describe("When clicking the list item remove button", () => {
   });
 
   it("Should remove the list item deleted from the URL", () => {
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
 
-    expect(url.toString()).not.toContain(name);
+    expect(url.toString()).not.toContain(name.replace(" ", "+"));
   });
 });
 
@@ -140,7 +136,7 @@ describe("When clicking the theme toggle button", () => {
     render(<App />);
   });
 
-  it("Should change theme", () => {
+  it("Should change the theme", () => {
     const themeButton = screen.getByTestId("themeButton");
     fireEvent.click(themeButton);
 

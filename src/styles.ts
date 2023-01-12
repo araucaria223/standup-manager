@@ -1,6 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { darkTheme } from "./theme";
 
-export const GlobalStyle = createGlobalStyle`
+type ThemeType = typeof darkTheme;
+
+export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   body {
     background-color: ${(props) => props.theme.colors.base};
     color: ${(props) => props.theme.colors.text};
@@ -71,15 +74,18 @@ export const ActionButtonWrapper = styled.div`
   margin: 1rem;
 `;
 
-export const ActionButton = styled.button`
+interface ABtn {
+  visible: string;
+  bgcolor: string;
+  color: string;
+}
+
+export const ActionButton = styled.button<ABtn>`
   display: flex;
 
   opacity: ${(props) => (props.visible === "on-hover" ? 0 : 1)};
-  background-color: ${(props) => props.theme.colors[props.bgcolor]};
-  color: ${(props) =>
-    props.color
-      ? props.theme.colors[props.color]
-      : props.theme.colors.surface0};
+  background-color: ${(props) => props.theme.colors[props.bgcolor || "mantle"]};
+  color: ${(props) => props.theme.colors[props.color || "surface0"]};
 
   border: 2px solid transparent;
   border-radius: 50%;
@@ -127,7 +133,11 @@ export const NameList = styled.ol`
   }
 `;
 
-export const NameItem = styled.li`
+interface NItm {
+  order: number;
+}
+
+export const NameItem = styled.li<NItm>`
   display: flex;
   justify-content: space-between;
 
@@ -139,8 +149,7 @@ export const NameItem = styled.li`
     margin-inline: 0.5rem;
   }
 
-  &:hover ${ActionButton},
-  &:focus-within ${ActionButton} {
+  &:hover ${ActionButton}, &:focus-within ${ActionButton} {
     transition-delay: 0.1s;
     transition-duration: 0.3s;
     opacity: 1;

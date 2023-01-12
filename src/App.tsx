@@ -15,82 +15,56 @@ import {
   NameItem,
 } from "./styles";
 
-function App() {
-  const url = new URL(window.location);
+function App(): any {
+  const url = new URL(window.location.href);
 
-  let searchParams;
-  try {
-    searchParams = url.searchParams.get("names").split(",");
-  } catch (err) {
-    searchParams = [];
-  }
+  let urlQueryParams = url.searchParams.get("names") || "";
+  let queryParams = urlQueryParams.split(",").filter((e) => e);
 
-  if (searchParams[0] === "" && searchParams.length === 1) {
-    searchParams = [];
-  }
-  const [darkMode, setDarkMode] = useState(true);
-  const [names, setNames] = useState(searchParams);
-  const [inputValue, setInputValue] = useState("");
+  function setQueryParams(params: Array<string>, replace = true) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("names", params.toString());
 
-  function setQueryParams(params, mode = "replace") {
-    const url = new URL(window.location);
-
-    url.searchParams.set("names", params);
-
-    if (mode === "replace") {
+    if (replace) {
       window.history.replaceState({}, "", url);
-    } else if (mode === "push") {
-      window.history.pushState({}, "", url);
     } else {
-      console.error("Invalid query params mode");
+      window.history.pushState({}, "", url);
     }
   }
+
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [names, setNames] = useState<Array<string>>(queryParams);
+  const [inputValue, setInputValue] = useState<string>("");
 
   function handleThemeToggle() {
     setDarkMode(!darkMode);
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmedInputValue = inputValue.trim();
     if (trimmedInputValue === "" || trimmedInputValue === "​") {
       return false;
     }
 
-    let newNames = [...names, trimmedInputValue];
+    let newNames: Array<string> = [...names, trimmedInputValue];
     setNames(newNames);
     setInputValue("");
 
-    setQueryParams(newNames.toString());
+    setQueryParams(newNames);
   }
 
-  function handleChange(event) {
-    setInputValue(event.target.value);
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const target = event.target as HTMLInputElement;
+    setInputValue(target.value);
   }
 
-  function handleRandomise() {
+  function handleRandomise(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
     let newNames = names.sort(() => Math.random() - 0.5);
 
     setNames([...newNames]);
-
-    setQueryParams(newNames.toString());
-  }
-
-  function handleClear() {
-    setNames([]);
-
-    setQueryParams("", "push");
-  }
-
-  function handleListItemDelete(event) {
-    const indexToDelete = parseInt(
-      event.target.parentElement.getAttribute("order")
-    );
-
-    names.splice(indexToDelete, 1);
-    setNames([...names]);
-
-    setQueryParams(names.toString());
+    setQueryParams(newNames);
   }
 
   function handleCopy() {
@@ -101,6 +75,22 @@ function App() {
     navigator.clipboard.writeText(copyText);
   }
 
+  function handleClear() {
+    setNames([]);
+    setQueryParams([], false);
+  }
+
+  function handleListItemDelete(event: React.MouseEvent<HTMLButtonElement>) {
+    const target = event.target as HTMLButtonElement;
+    const parentElement = target.parentElement || new HTMLElement();
+    const indexToDelete = parseInt(parentElement.getAttribute("order") || "0");
+
+    names.splice(indexToDelete, 1);
+    setNames([...names]);
+
+    setQueryParams(names);
+  }
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
@@ -109,6 +99,7 @@ function App() {
         color="text"
         data-testid="themeButton"
         onClick={handleThemeToggle}
+        visible="always"
       >
         {darkMode ? (
           <svg
@@ -141,11 +132,10 @@ function App() {
               type="text"
               name="Name"
               placeholder="Name"
-              id="nameInput"
               data-testid="nameInput"
               autoComplete="off"
               value={inputValue}
-              maxLength="60"
+              maxLength={60}
               onChange={handleChange}
             ></NameInput>
             <AddButton type="submit">
@@ -156,6 +146,8 @@ function App() {
         <ActionButtonWrapper>
           <ActionButton
             bgcolor="lavender"
+            color="surface0"
+            visible="always"
             title="Randomise list"
             data-testid="randomButton"
             onClick={handleRandomise}
@@ -171,6 +163,8 @@ function App() {
           </ActionButton>
           <ActionButton
             bgcolor="yellow"
+            color="surface0"
+            visible="always"
             title="Copy list to clipboard"
             data-testid="copyButton"
             onClick={handleCopy}
@@ -186,6 +180,8 @@ function App() {
           </ActionButton>
           <ActionButton
             bgcolor="red"
+            color="surface0"
+            visible="always"
             title="Clear list"
             data-testid="clearButton"
             onClick={handleClear}
@@ -211,10 +207,10 @@ function App() {
                 <span>{item}</span>
                 <ActionButton
                   bgcolor="red"
+                  color="surface0"
                   visible="on-hover"
                   title="Remove from list"
                   onClick={handleListItemDelete}
-                  aria-describedby="Remove from list"
                 >
                   -
                 </ActionButton>
