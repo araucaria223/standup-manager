@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Standup-manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`standup-manager` is a small React web app I created as part of work experience with the software development team at Audio Network.
 
-## Available Scripts
+## Goals
 
-In the project directory, you can run:
+The purpose of this project was to provide an easy-to-use interface for managing standup meetings over a video call.
 
-### `npm start`
+### The problem
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Since the covid lockdowns, many more of the standup meetings between ANW team members happened paritally or entirely over Microsoft Teams. This presented a problem: under normal circumstances, the order of speaking in a meeting is clear - you go (anti-)clockwise from the person who starts. On a video call, however, there is no obvious order in which people should speak and this leads to wasted time while people decide who should speak next.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### The solution
 
-### `npm test`
+The way `standup-manager` works is extremely simple: it generates a list based on user input of names, and randomises it. Some other functionality is provided for convenience, e.g. a copy button to copy the list to the clipboard.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running locally
 
-### `npm run build`
+In the project directory, you can run `npm start` to run in development mode on [http://localhost:3000](http://localhost:3000), or `npm run build` to build for production in the `build` folder.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`npm test` launches the test runner in watch mode.
